@@ -91,6 +91,7 @@ def tensor_to_base64_url(image_tensor):
         print(f"图像转换失败: {e}")
         raise Exception(f"图像格式转换失败: {str(e)}")
 
+
 class ModelScopeImageNode:
     def __init__(self):
         pass
@@ -106,15 +107,15 @@ class ModelScopeImageNode:
                     "default": config.get("default_prompt", "A beautiful landscape")
                 }),
                 "api_token": ("STRING", {
-                    "default": "",
-                    "placeholder": "请输入您的魔搭API Token",
+                    "default": "***已保存***" if saved_token else "",
+                    "placeholder": "请输入您的魔搭API Token" if not saved_token else "留空使用已保存的Token",
                     "multiline": False
                 }),
             },
             "optional": {
-"model": (config.get("image_models", ["Qwen/Qwen-Image"]), {
-    "default": config.get("default_model", "Qwen/Qwen-Image")
-}),
+                "model": (config.get("image_models", ["Qwen/Qwen-Image"]), {
+                    "default": config.get("default_model", "Qwen/Qwen-Image")
+                }),
                 "negative_prompt": ("STRING", {
                     "multiline": True,
                     "default": config.get("default_negative_prompt", "")
@@ -157,16 +158,18 @@ class ModelScopeImageNode:
     
     def generate_image(self, prompt, api_token, model="Qwen/Qwen-Image", negative_prompt="", width=512, height=512, seed=-1, steps=30, guidance=7.5):
         config = load_config()
-        if not api_token or api_token.strip() == "":
+        if not api_token or api_token.strip() == "" or api_token.strip() == "***已保存***":
             api_token = load_api_token()
             if not api_token or api_token.strip() == "":
                 raise Exception("请输入有效的API Token或确保已保存token")
         saved_token = load_api_token()
-        if api_token != saved_token:
+        if api_token != saved_token and api_token.strip() != "***已保存***":
             if save_api_token(api_token):
                 print("✅ API Token已自动保存")
             else:
                 print("⚠️ API Token保存失败，但不影响当前使用")
+        elif api_token.strip() == "***已保存***":
+            api_token = saved_token
         try:
             url = 'https://api-inference.modelscope.cn/v1/images/generations'
             payload = {
@@ -269,6 +272,7 @@ class ModelScopeImageNode:
             error_tensor = torch.from_numpy(error_np)[None,]
             return (error_tensor,)
 
+
 class ModelScopeImageEditNode:
     def __init__(self):
         pass
@@ -277,6 +281,11 @@ class ModelScopeImageEditNode:
     def INPUT_TYPES(cls):
         config = load_config()
         saved_token = load_api_token()
+        
+        # 获取模型列表
+        edit_models = config.get("image_edit_models", ["Qwen/Qwen-Image-Edit"])
+        gen_models = config.get("image_models", ["Qwen/Qwen-Image"])
+
         return {
             "required": {
                 "image": ("IMAGE",),
@@ -285,15 +294,23 @@ class ModelScopeImageEditNode:
                     "default": "修改图片中的内容"
                 }),
                 "api_token": ("STRING", {
-                    "default": "",
-                    "placeholder": "请输入您的魔搭API Token",
+                    "default": "***已保存***" if saved_token else "",
+                    "placeholder": "请输入您的魔搭API Token" if not saved_token else "留空使用已保存的Token",
                     "multiline": False
+                }),
+                "image_gen_mode": ("BOOLEAN", {
+                    "default": False,
+                    "label_on": "图生图模式",
+                    "label_off": "图像编辑模式"
                 }),
             },
             "optional": {
-"model": (config.get("image_edit_models", ["Qwen/Qwen-Image-Edit"]) + config.get("image_models", []), {
-    "default": "Qwen/Qwen-Image-Edit"
-}),
+                "gen_model": (gen_models, {
+                    "default": gen_models[0] if gen_models else "Qwen/Qwen-Image"
+                }),
+                "edit_model": (edit_models, {
+                    "default": edit_models[0] if edit_models else "Qwen/Qwen-Image-Edit"
+                }),
                 "negative_prompt": ("STRING", {
                     "multiline": True,
                     "default": ""
@@ -327,12 +344,6 @@ class ModelScopeImageEditNode:
                     "min": -1,
                     "max": 2147483647
                 }),
-                "denoise": ("FLOAT", {
-                    "default": 0.75,
-                    "min": 0.00,
-                    "max": 1.00,
-                    "step": 0.01
-                }),
             }
         }
 
@@ -341,22 +352,33 @@ class ModelScopeImageEditNode:
     FUNCTION = "edit_image"
     CATEGORY = "ModelScopeAPI"
 
-    def edit_image(self, image, prompt, api_token, model="Qwen/Qwen-Image-Edit", negative_prompt="", 
-                   width=512, height=512, steps=30, guidance=3.5, seed=-1, denoise=0.75):
+    def edit_image(self, image, prompt, api_token, image_gen_mode=False, gen_model="Qwen/Qwen-Image", 
+                   edit_model="Qwen/Qwen-Image-Edit", negative_prompt="", 
+                   width=512, height=512, steps=30, guidance=3.5, seed=-1):
         config = load_config()
-        if not api_token or api_token.strip() == "":
+        if not api_token or api_token.strip() == "" or api_token.strip() == "***已保存***":
             api_token = load_api_token()
             if not api_token or api_token.strip() == "":
                 raise Exception("请输入有效的API Token或确保已保存token")
-        else:
-            saved_token = load_api_token()
-            if api_token != saved_token:
-                if save_api_token(api_token):
-                    print("✅ API Token已自动保存")
-                else:
-                    print("⚠️ API Token保存失败，但不影响当前使用")
-
+        saved_token = load_api_token()
+        if api_token != saved_token and api_token.strip() != "***已保存***":
+            if save_api_token(api_token):
+                print("✅ API Token已自动保存")
+            else:
+                print("⚠️ API Token保存失败，但不影响当前使用")
+        elif api_token.strip() == "***已保存***":
+            api_token = saved_token
         try:
+            # 根据开关选择使用的模型
+            if image_gen_mode:
+                model = gen_model
+                mode_name = "图生图"
+                mode_type = "image_generation"
+            else:
+                model = edit_model
+                mode_name = "图像编辑"
+                mode_type = "image_edit"
+
             # 将图像转换为临时文件并上传获取URL
             temp_img_path = None
             image_url = None
@@ -432,10 +454,6 @@ class ModelScopeImageEditNode:
             if seed != -1:
                 payload['seed'] = seed
                 print(f"🎲 随机种子: {seed}")
-                
-            if denoise != 0.75:
-                payload['denoise'] = denoise
-                print(f"🎚️ 降噪强度: {denoise}")
             
             headers = {
                 'Authorization': f'Bearer {api_token}',
@@ -443,8 +461,9 @@ class ModelScopeImageEditNode:
                 'X-ModelScope-Async-Mode': 'true'
             }
             
-            print(f"🖼️ 开始编辑图片...")
+            print(f"🖼️ 开始{mode_name}...")
             print(f"✏️ 编辑提示: {prompt}")
+            print(f"🧠 使用模型: {model}")
             
             url = 'https://api-inference.modelscope.cn/v1/images/generations'
             submission_response = requests.post(
@@ -520,7 +539,7 @@ class ModelScopeImageEditNode:
                 except:
                     pass
             
-            print(f"🎉 图片编辑完成！")
+            print(f"🎉 {mode_name}完成！")
             return (image_tensor,)
             
         except Exception as e:
@@ -528,6 +547,8 @@ class ModelScopeImageEditNode:
             # 返回原图像作为错误回退
             return (image.unsqueeze(0),)
 
+
+# 节点映射
 NODE_CLASS_MAPPINGS = {
     "ModelScopeImageNode": ModelScopeImageNode,
     "ModelScopeImageEditNode": ModelScopeImageEditNode
