@@ -112,12 +112,13 @@ class ModelScopeVisionNode:
                     "default": config.get("default_prompt", "描述这幅图")
                 }),
                 "api_token": ("STRING", {
-                    "default": saved_token,
-                    "placeholder": "请输入您的魔搭API Token"
+                    "default": "",
+                    "placeholder": "请输入您的魔搭API Token",
+                    "multiline": False
                 }),
             },
             "optional": {
-                "model": ("STRING", {
+                "model": (config.get("vision_models", ["stepfun-ai/step3"]), {
                     "default": config.get("default_vision_model", "stepfun-ai/step3")
                 }),
                 "max_tokens": ("INT", {
@@ -146,7 +147,9 @@ class ModelScopeVisionNode:
         config = load_config()
         
         if not api_token or api_token.strip() == "":
-            raise Exception("请输入有效的API Token")
+            api_token = load_api_token()
+            if not api_token or api_token.strip() == "":
+                raise Exception("请输入有效的API Token或确保已保存token")
         
         saved_token = load_api_token()
         if api_token != saved_token:
