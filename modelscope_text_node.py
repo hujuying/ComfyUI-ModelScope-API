@@ -83,8 +83,9 @@ class ModelScopeTextNode:
                     "default": config.get("default_user_prompt", "你好")
                 }),
                 "api_token": ("STRING", {
-                    "default": saved_token,
-                    "placeholder": "请输入您的魔搭API Token"
+                    "default": "",
+                    "placeholder": "请输入您的魔搭API Token",
+                    "multiline": False
                 }),
             },
             "optional": {
@@ -92,7 +93,7 @@ class ModelScopeTextNode:
                     "multiline": True,
                     "default": config.get("default_system_prompt", "You are a helpful assistant.")
                 }),
-                "model": ("STRING", {
+                "model": (config.get("text_models", ["Qwen/Qwen3-Coder-480B-A35B-Instruct"]) + config.get("vision_models", []), {
                     "default": config.get("default_text_model", "Qwen/Qwen3-Coder-480B-A35B-Instruct")
                 }),
                 "max_tokens": ("INT", {
@@ -124,7 +125,9 @@ class ModelScopeTextNode:
         config = load_config()
         
         if not api_token or api_token.strip() == "":
-            raise Exception("请输入有效的API Token")
+            api_token = load_api_token()
+            if not api_token or api_token.strip() == "":
+                raise Exception("请输入有效的API Token或确保已保存token")
         
         saved_token = load_api_token()
         if api_token != saved_token:

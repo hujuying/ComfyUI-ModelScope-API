@@ -12,22 +12,33 @@
   "default_text_model": "Qwen/Qwen3-Coder-480B-A35B-Instruct",
   "default_system_prompt": "You are a helpful assistant.",
   "default_user_prompt": "你好",
-  "api_token": "",
+  "api_token": "ms-561cde2a-253e-4fc8-8d33-6f8afcffdeaa",
   "image_models": [
     "Qwen/Qwen-Image",
     "MusePublic/489_ckpt_FLUX_1",
+    "MusePublic/flux-high-res",
+    "black-forest-labs/FLUX.1-dev",
+    "black-forest-labs/FLUX.1-Canny-dev",
+    "black-forest-labs/FLUX.1-Depth-dev",
+    "black-forest-labs/FLUX.1-Fill-dev",
     "black-forest-labs/FLUX.1-Krea-dev",
     "MAILAND/majicflus_v1"
   ],
   "image_edit_models": [
     "Qwen/Qwen-Image-Edit",
-    "MusePublic/FLUX.1-Kontext-Dev"
+    "MusePublic/FLUX.1-Kontext-Dev",
+    "black-forest-labs/FLUX.1-Kontext-dev"
   ],
   "text_models": [
     "Qwen/Qwen3-Coder-480B-A35B-Instruct",
     "Qwen/Qwen3-Coder-480B-A35B-Chat",
+    "Qwen/Qwen3-235B-A22B-Thinking-2507",
+    "Qwen3-235B-A22B-Instruct-2507",
     "Qwen/Qwen3-Coder-140B-A35B-Instruct",
-    "Qwen/Qwen3-Coder-70B-A35B-Instruct"
+    "Qwen/Qwen3-Coder-70B-A35B-Instruct",
+    "deepseek-ai/DeepSeek-V3.1",
+    "deepseek-ai/DeepSeek-R1-0528",
+    "ZhipuAI/GLM-4.5"
   ],
   "vision_models": [
     "stepfun-ai/step3",

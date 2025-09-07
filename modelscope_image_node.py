@@ -106,8 +106,9 @@ class ModelScopeImageNode:
                     "default": config.get("default_prompt", "A beautiful landscape")
                 }),
                 "api_token": ("STRING", {
-                    "default": saved_token,
-                    "placeholder": "请输入您的魔搭API Token"
+                    "default": "",
+                    "placeholder": "请输入您的魔搭API Token",
+                    "multiline": False
                 }),
             },
             "optional": {
@@ -157,7 +158,9 @@ class ModelScopeImageNode:
     def generate_image(self, prompt, api_token, model="Qwen/Qwen-Image", negative_prompt="", width=512, height=512, seed=-1, steps=30, guidance=7.5):
         config = load_config()
         if not api_token or api_token.strip() == "":
-            raise Exception("请输入有效的API Token")
+            api_token = load_api_token()
+            if not api_token or api_token.strip() == "":
+                raise Exception("请输入有效的API Token或确保已保存token")
         saved_token = load_api_token()
         if api_token != saved_token:
             if save_api_token(api_token):
@@ -282,12 +285,13 @@ class ModelScopeImageEditNode:
                     "default": "修改图片中的内容"
                 }),
                 "api_token": ("STRING", {
-                    "default": saved_token,
-                    "placeholder": "请输入您的魔搭API Token"
+                    "default": "",
+                    "placeholder": "请输入您的魔搭API Token",
+                    "multiline": False
                 }),
             },
             "optional": {
-"model": (config.get("image_edit_models", ["Qwen/Qwen-Image-Edit"]), {
+"model": (config.get("image_edit_models", ["Qwen/Qwen-Image-Edit"]) + config.get("image_models", []), {
     "default": "Qwen/Qwen-Image-Edit"
 }),
                 "negative_prompt": ("STRING", {
@@ -323,6 +327,12 @@ class ModelScopeImageEditNode:
                     "min": -1,
                     "max": 2147483647
                 }),
+                "denoise": ("FLOAT", {
+                    "default": 0.75,
+                    "min": 0.00,
+                    "max": 1.00,
+                    "step": 0.01
+                }),
             }
         }
 
@@ -332,16 +342,19 @@ class ModelScopeImageEditNode:
     CATEGORY = "ModelScopeAPI"
 
     def edit_image(self, image, prompt, api_token, model="Qwen/Qwen-Image-Edit", negative_prompt="", 
-                   width=512, height=512, steps=30, guidance=3.5, seed=-1):
+                   width=512, height=512, steps=30, guidance=3.5, seed=-1, denoise=0.75):
         config = load_config()
         if not api_token or api_token.strip() == "":
-            raise Exception("请输入有效的API Token")
-        saved_token = load_api_token()
-        if api_token != saved_token:
-            if save_api_token(api_token):
-                print("✅ API Token已自动保存")
-            else:
-                print("⚠️ API Token保存失败，但不影响当前使用")
+            api_token = load_api_token()
+            if not api_token or api_token.strip() == "":
+                raise Exception("请输入有效的API Token或确保已保存token")
+        else:
+            saved_token = load_api_token()
+            if api_token != saved_token:
+                if save_api_token(api_token):
+                    print("✅ API Token已自动保存")
+                else:
+                    print("⚠️ API Token保存失败，但不影响当前使用")
 
         try:
             # 将图像转换为临时文件并上传获取URL
@@ -419,6 +432,10 @@ class ModelScopeImageEditNode:
             if seed != -1:
                 payload['seed'] = seed
                 print(f"🎲 随机种子: {seed}")
+                
+            if denoise != 0.75:
+                payload['denoise'] = denoise
+                print(f"🎚️ 降噪强度: {denoise}")
             
             headers = {
                 'Authorization': f'Bearer {api_token}',
