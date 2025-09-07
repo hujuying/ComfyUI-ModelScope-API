@@ -12,26 +12,24 @@
   "default_text_model": "Qwen/Qwen3-Coder-480B-A35B-Instruct",
   "default_system_prompt": "You are a helpful assistant.",
   "default_user_prompt": "你好",
-  "api_token": "ms-561cde2a-253e-4fc8-8d33-6f8afcffdeaa",
+  "api_token": "",
   "image_models": [
     "Qwen/Qwen-Image",
+    "MusePublic/Qwen-image",
     "MusePublic/489_ckpt_FLUX_1",
     "MusePublic/flux-high-res",
-    "black-forest-labs/FLUX.1-dev",
-    "black-forest-labs/FLUX.1-Canny-dev",
-    "black-forest-labs/FLUX.1-Depth-dev",
-    "black-forest-labs/FLUX.1-Fill-dev",
     "black-forest-labs/FLUX.1-Krea-dev",
     "MAILAND/majicflus_v1"
   ],
   "image_edit_models": [
     "Qwen/Qwen-Image-Edit",
-    "MusePublic/FLUX.1-Kontext-Dev",
+    "MusePublic/Qwen-Image-Edit",
+    "MusePublic/FLUX.1-Kontext-Dev"，
     "black-forest-labs/FLUX.1-Kontext-dev"
   ],
   "text_models": [
     "Qwen/Qwen3-Coder-480B-A35B-Instruct",
-    "Qwen/Qwen3-Coder-480B-A35B-Chat",
+    "Qwen/Qwen3-Coder-480B-A35B-Chat"，
     "Qwen/Qwen3-235B-A22B-Thinking-2507",
     "Qwen3-235B-A22B-Instruct-2507",
     "Qwen/Qwen3-Coder-140B-A35B-Instruct",
@@ -42,7 +40,12 @@
   ],
   "vision_models": [
     "stepfun-ai/step3",
-    "Qwen/Qwen-VL-Chat",
-    "Qwen/Qwen-VL"
+    "Qwen/Qwen2.5-VL-7B-Instruct"，
+    "Qwen/Qwen2.5-VL-72B-Instruct",
+    "Qwen/Qwen2.5-VL-3B-Instruct",
+    "Qwen/Qwen2.5-VL-32B-Instruct",
+    "Qwen/Qwen2-VL-7B-Instruct",
+    "Qwen/QVQ-72B-Preview",
+    "PaddlePaddle/ERNIE-4.5-VL-28B-A3B-PT"
   ]
 }
