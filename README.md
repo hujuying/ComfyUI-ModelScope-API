@@ -3,7 +3,12 @@
 ComfyUI-ModelScope-API 是一个强大的 ComfyUI 自定义节点，它架起了 ComfyUI 可视化工作流环境与 ModelScope 丰富模型库之间的桥梁。
  
 This is a powerful custom node for ComfyUI that bridges the gap between ComfyUI's visual workflow environment and ModelScope's extensive collection.
- 
+
+---
+# 没有Comfyui有需要WebUI界面的可以到龙大的项目
+ModelScope API WebUI
+基于ModelScope API的现代化Web应用，提供完整的AI模型服务访问界面。
+
 ---
  
 ## 🏗️ 核心架构概述
