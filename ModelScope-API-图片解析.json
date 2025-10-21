@@ -1,0 +1,182 @@
+{
+  "id": "6d37ea84-d0ab-4123-8c8c-965b62a18230",
+  "revision": 0,
+  "last_node_id": 19,
+  "last_link_id": 31,
+  "nodes": [
+    {
+      "id": 17,
+      "type": "easy showAnything",
+      "pos": [
+        2732.3588101299074,
+        397.60778722933657
+      ],
+      "size": [
+        482.4299999999994,
+        553.9499999999997
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "输入任何",
+          "name": "anything",
+          "shape": 7,
+          "type": "*",
+          "link": 31
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "1.3.3",
+        "Node name for S&R": "easy showAnything"
+      },
+      "widgets_values": [
+        "一位年轻美丽的亚洲女性，身着精致的淡紫色丝绸旗袍，旗袍上绣有金色祥云与花卉纹样，领口为高立领配盘扣设计，前襟开衩至大腿中部，展现优雅曲线。她佩戴半透明薄纱长袖，袖口拼接红色织锦并饰以金色龙纹刺绣，搭配同色系红色过膝袜。发型为古典盘发，插有金质流苏发簪与珠饰，刘海轻柔垂落，妆容精致，红唇微启，眼神温柔含情，直视镜头。背景为中式室内场景，墙面挂有水墨风格的山水或花鸟画作，色调柔和偏暖，营造静谧典雅氛围。整体构图采用中景人像视角，人物居中站立，略微侧身，突出服装细节与身材比例。光影柔和均匀，强调丝绸面料的光泽感与刺绣纹理，皮肤质感细腻光滑，呈现数字绘画的超写实美感。风格参考新中式美学与现代商业人像摄影，融合传统元素与时尚表现力，色彩主调为淡紫、金、红三色，辅以米白与浅棕背景，形成高级和谐的视觉层次。画面干净无杂物，焦点集中于人物神态与服饰工艺，适合用于AI绘图生成高质量东方美人肖像。"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "LoadImage",
+      "pos": [
+        1869.8370214843746,
+        350.8748266601562
+      ],
+      "size": [
+        290.8019714355469,
+        570.7747192382812
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "label": "图像",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            30
+          ]
+        },
+        {
+          "label": "遮罩",
+          "name": "MASK",
+          "type": "MASK"
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.49",
+        "Node name for S&R": "LoadImage",
+        "ue_properties": {
+          "version": "7.0.1",
+          "widget_ue_connectable": {
+            "image": true,
+            "upload": true
+          }
+        }
+      },
+      "widgets_values": [
+        "ebe510f1a069ba899eec0f82fefd3746d26f2f95ec2378a10ec1cd56cbc53642.png",
+        "image"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 19,
+      "type": "ModelScopeImageCaptionNode",
+      "pos": [
+        2266.803982765229,
+        414.0277931000381
+      ],
+      "size": [
+        400,
+        214
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 30
+        }
+      ],
+      "outputs": [
+        {
+          "name": "description",
+          "type": "STRING",
+          "links": [
+            31
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ModelScopeImageCaptionNode"
+      },
+      "widgets_values": [
+        "***已保存1个Token***",
+        "帮我拆解这张图片的提示词，要求从主体内容、场景设定、风格参考、色条色彩、构图视角、细节补充等这些角度来用文字描述图片，并汇总生成一个能让我用 ai绘画工具的文生图提示词，字数在 800 字以内，只要求输出汇总后的最终提示词，不需要无用信息。如：提示词标题，总字数等信息。",
+        "Qwen/Qwen3-VL-235B-A22B-Instruct",
+        1000,
+        0.7
+      ]
+    }
+  ],
+  "links": [
+    [
+      30,
+      5,
+      0,
+      19,
+      0,
+      "IMAGE"
+    ],
+    [
+      31,
+      19,
+      0,
+      17,
+      0,
+      "*"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 2,
+      "title": "魔搭-图片编辑",
+      "bounding": [
+        1663.396484375,
+        122.82080078125,
+        1826.526123046875,
+        960.4658203125
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.620921323059155,
+      "offset": [
+        -1125.4324556670972,
+        206.079530787193
+      ]
+    },
+    "frontendVersion": "1.30.1"
+  },
+  "version": 0.4
+}
