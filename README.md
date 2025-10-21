@@ -10,7 +10,11 @@ ModelScope API WebUI
 基于ModelScope API的现代化Web应用，提供完整的AI模型服务访问界面。
 
 ---
- 
+## 更新日志：
+
+**2025-9-9 更新**  ComfyUI-ModelScope-API  支持Qwen3-VL系列模型反推
+
+
 ## 🏗️ 核心架构概述
  
 该架构的核心是 `ModelScopeAPI` 类，它作为 ComfyUI 与 ModelScope 云服务之间的主要接口。该架构采用模块化设计模式，职责划分清晰，处理从用户输入验证到图像处理和 API 通信的所有事务。
