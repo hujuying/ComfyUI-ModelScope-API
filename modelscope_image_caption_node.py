@@ -48,9 +48,13 @@ class ModelScopeImageCaptionNode:
                 }),
             },
             "optional": {
-                "prompt": ("STRING", {
+                "prompt1": ("STRING", {
                     "multiline": True,
                     "default": "详细描述这张图片的内容，包括主体、背景、颜色、风格等信息"
+                }),
+                "prompt2": ("STRING", {
+                    "multiline": True,
+                    "default": ""
                 }),
                 # 添加模型下拉选择
                 "model": (supported_models, {
@@ -84,10 +88,23 @@ class ModelScopeImageCaptionNode:
         tokens = re.split(r'[,;\n]+', token_input)
         return [token.strip() for token in tokens if token.strip()]
 
-    # 调整参数顺序，加入model参数（与INPUT_TYPES顺序匹配）
-    def generate_caption(self, image=None, api_tokens="", prompt="详细描述这张图片的内容", model="Qwen/Qwen3-VL-8B-Instruct", max_tokens=1000, temperature=0.7):
+    # 调整参数顺序，加入新的prompt2参数
+    def generate_caption(self, image=None, api_tokens="", prompt1="详细描述这张图片的内容", prompt2="", model="Qwen/Qwen3-VL-8B-Instruct", max_tokens=1000, temperature=0.7):
         if not OPENAI_AVAILABLE:
             return ("请先安装openai库: pip install openai",)
+        
+        # 处理提示词合并
+        prompt_parts = []
+        if prompt1.strip():
+            prompt_parts.append(prompt1.strip())
+        if prompt2.strip():
+            prompt_parts.append(prompt2.strip())
+        
+        # 如果两个提示词都为空，使用默认提示
+        if not prompt_parts:
+            prompt = "详细描述这张图片的内容，包括主体、背景、颜色、风格等信息"
+        else:
+            prompt = ", ".join(prompt_parts)
         
         # 解析Token列表（支持多个）
         tokens = self.parse_api_tokens(api_tokens)
