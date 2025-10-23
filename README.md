@@ -12,8 +12,8 @@ ModelScope API WebUI
 ---
 ## 更新日志：
 
-**2025-9-9 更新**  ComfyUI-ModelScope-API  支持Qwen3-VL系列模型反推
-
+**2025-10-23 更新**  ComfyUI-ModelScope-API  图像描述节点增加一个次要提示词输入，可同时输入2条提示词（自动合并）
+**2025-10-22 更新**  ComfyUI-ModelScope-API  增加图像描述节点 支持Qwen3-VL系列模型反推
 
 ## 🏗️ 核心架构概述
  
