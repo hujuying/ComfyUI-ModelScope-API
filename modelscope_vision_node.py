@@ -19,7 +19,7 @@ except ImportError:
     OpenAI = None
  
 def load_config():
-    config_path = os.path.join.join(os.path.dirname(__file__), 'modelscope_config.json')
+    config_path = os.path.join(os.path.dirname(__file__), 'modelscope_config.json')
     try:
         with open(config_path, 'r', encoding='utf-8') as f:
             return json.load(f)
