@@ -96,7 +96,7 @@ def tensor_to_base64_url(image_tensor):
         else:
             image_np = image_tensor.cpu().numpy().astype(np.uint8)
         
-        pil_image = Image.fromarrayarray(image_np)
+        pil_image = Image.fromarray(image_np)
         buffer = BytesIO()
         pil_image.save(buffer, format='JPEG', quality=85)
         img_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
