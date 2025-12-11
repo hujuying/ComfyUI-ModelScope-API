@@ -12,7 +12,7 @@ ModelScope API WebUI
 ---
 ## 更新日志：
 
-**2025-12-11 更新**  参考了https://github.com/otsluo/comfyui-modelscope-api 的lora代码对图像生成节点与图像编辑节点增加了lora功能，图像描述节点节点可不输入图片直接使用Qwen3-VL作为大语言模型使用。
+**2025-12-11 更新**  生图模型支持Z-image模型。参考了https://github.com/otsluo/comfyui-modelscope-api 的lora代码对图像生成节点与图像编辑节点增加了lora功能，图像描述节点节点可不输入图片直接使用Qwen3-VL作为大语言模型使用。
 
 **2025-10-23 更新**  ComfyUI-ModelScope-API  图像描述节点增加一个次要提示词输入，可同时输入2条提示词（自动合并）
 
