@@ -19,7 +19,9 @@
     "MusePublic/489_ckpt_FLUX_1",
     "MusePublic/flux-high-res",
     "black-forest-labs/FLUX.1-Krea-dev",
-    "MAILAND/majicflus_v1"
+    "MAILAND/majicflus_v1",
+    "MoYouuu/MYHuman-QWen",
+    "Tongyi-MAI/Z-Image-Turbo"
   ],
   "image_edit_models": [
     "Qwen/Qwen-Image-Edit",
@@ -47,5 +49,42 @@
     "Qwen/Qwen2-VL-7B-Instruct",
     "Qwen/QVQ-72B-Preview",
     "PaddlePaddle/ERNIE-4.5-VL-28B-A3B-PT"
+  ],
+  "default_lora_model": "",
+  "default_lora_weight": 0.8,
+  "lora_presets": [
+    {
+      "name": "无LoRA",
+      "model_id": "",
+      "weight": 0.8
+    },
+    {
+      "name": "Qwen-小红书风格美人",
+      "model_id": "qiyuanai/TikTok_Xiaohongshu_career_line_beauty_v1",
+      "weight": 0.8
+    },
+    {
+      "name": "Qwen-小红书甜妹",
+      "model_id": "wilderkid/Rednote_SweetGirl",
+      "weight": 0.8
+    },
+    {
+      "name": "Qwen-小红薯-风格插画-排版",
+      "model_id": "YJ777YJ/xiaohshu",
+      "weight": 0.8
+    },
+    {
+      "name": "Qwen-真实人像小红书风格",
+      "model_id": "chy1125677992/qwxhs",
+      "weight": 0.8
+    },
+    {
+      "name": "Qwen-抖音小红书手持手机自拍美女",
+      "model_id": "qiyuanai/shouchizipai_v1",
+      "weight": 0.8
+    }
+  ],
+  "api_tokens": [
+    "ms"
   ]
 }

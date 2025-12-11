@@ -19,7 +19,7 @@ except ImportError:
     OpenAI = None
  
 def load_config():
-    config_path = os.path.join(os.path.dirname(__file__), 'modelscope_config.json')
+    config_path = os.path.join.join(os.path.dirname(__file__), 'modelscope_config.json')
     try:
         with open(config_path, 'r', encoding='utf-8') as f:
             return json.load(f)
@@ -28,39 +28,36 @@ def load_config():
             "default_model": "Qwen/Qwen-Image",
             "timeout": 720,
             "image_download_timeout": 30,
-            "default_prompt": "A beautiful landscape"
+            "default_prompt": "A beautiful landscape",
+            "api_token": ""  # 确保默认默认配置中添加api_token字段
         }
  
+def save_config(config):
+    """保存配置到modelscope_config.json"""
+    config_path = os.path.join(os.path.dirname(__file__), 'modelscope_config.json')
+    try:
+        with open(config_path, 'w', encoding='utf-8') as f:
+            json.dump(config, f, ensure_ascii=False, indent=2)
+        return True
+    except Exception as e:
+        print(f"保存配置失败: {e}")
+        return False
+ 
 def load_api_token():
-    token_path = os.path.join(os.path.dirname(__file__), '.qwen_token')
+    """仅从modelscope_config.json读取API Token"""
     try:
         cfg = load_config()
-        token_from_cfg = cfg.get("api_token", "").strip()
-        if token_from_cfg:
-            return token_from_cfg
+        return cfg.get("api_token", "").strip()
     except Exception as e:
         print(f"读取config.json中的token失败: {e}")
-    try:
-        if os.path.exists(token_path):
-            with open(token_path, 'r', encoding='utf-8') as f:
-                token = f.read().strip()
-                return token if token else ""
-        return ""
-    except Exception as e:
-        print(f"加载token失败: {e}")
         return ""
  
 def save_api_token(token):
-    token_path = os.path.join(os.path.dirname(__file__), '.qwen_token')
+    """仅将API Token保存到modelscope_config.json"""
     try:
-        with open(token_path, 'w', encoding='utf-8') as f:
-            f.write(token)
         cfg = load_config()
-        cfg["api_token"] = token
-        config_path = os.path.join(os.path.dirname(__file__), 'config.json')
-        with open(config_path, 'w', encoding='utf-8') as f:
-            json.dump(cfg, f, ensure_ascii=False, indent=2)
-        return True
+        cfg["api_token"] = token.strip()
+        return save_config(cfg)
     except Exception as e:
         print(f"保存token失败: {e}")
         return False
@@ -154,7 +151,7 @@ class ModelScopeVisionNode:
         saved_token = load_api_token()
         if api_token != saved_token:
             if save_api_token(api_token):
-                print("✅ API Token已自动保存")
+                print("✅ API Token已自动保存到modelscope_config.json")
             else:
                 print("⚠️ API Token保存失败，但不影响当前使用")
         

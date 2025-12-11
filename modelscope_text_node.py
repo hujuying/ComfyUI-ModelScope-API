@@ -22,39 +22,36 @@ def load_config():
             "default_model": "Qwen/Qwen-Image",
             "timeout": 720,
             "image_download_timeout": 30,
-            "default_prompt": "A beautiful landscape"
+            "default_prompt": "A beautiful landscape",
+            "default_text_model": "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+            "default_system_prompt": "You are a helpful assistant.",
+            "default_user_prompt": "你好",
+            "api_token": ""
         }
  
+def save_config(config):
+    config_path = os.path.join(os.path.dirname(__file__), 'modelscope_config.json')
+    try:
+        with open(config_path, 'w', encoding='utf-8') as f:
+            json.dump(config, f, ensure_ascii=False, indent=2)
+        return True
+    except Exception as e:
+        print(f"保存配置失败: {e}")
+        return False
+ 
 def load_api_token():
-    token_path = os.path.join(os.path.dirname(__file__), '.qwen_token')
     try:
         cfg = load_config()
-        token_from_cfg = cfg.get("api_token", "").strip()
-        if token_from_cfg:
-            return token_from_cfg
+        return cfg.get("api_token", "").strip()
     except Exception as e:
-        print(f"读取config.json中的token失败: {e}")
-    try:
-        if os.path.exists(token_path):
-            with open(token_path, 'r', encoding='utf-8') as f:
-                token = f.read().strip()
-                return token if token else ""
-        return ""
-    except Exception as e:
-        print(f"加载token失败: {e}")
+        print(f"读取 config.json中的token失败: {e}")
         return ""
  
 def save_api_token(token):
-    token_path = os.path.join(os.path.dirname(__file__), '.qwen_token')
     try:
-        with open(token_path, 'w', encoding='utf-8') as f:
-            f.write(token)
         cfg = load_config()
         cfg["api_token"] = token
-        config_path = os.path.join(os.path.dirname(__file__), 'config.json')
-        with open(config_path, 'w', encoding='utf-8') as f:
-            json.dump(cfg, f, ensure_ascii=False, indent=2)
-        return True
+        return save_config(cfg)
     except Exception as e:
         print(f"保存token失败: {e}")
         return False
@@ -83,7 +80,7 @@ class ModelScopeTextNode:
                     "default": config.get("default_user_prompt", "你好")
                 }),
                 "api_token": ("STRING", {
-                    "default": "",
+                    "default": saved_token,
                     "placeholder": "请输入您的魔搭API Token",
                     "multiline": False
                 }),
@@ -132,7 +129,7 @@ class ModelScopeTextNode:
         saved_token = load_api_token()
         if api_token != saved_token:
             if save_api_token(api_token):
-                print("✅ API Token已自动保存")
+                print("✅ API Token已自动保存到modelscope_config.json")
             else:
                 print("⚠️ API Token保存失败，但不影响当前使用")
         
