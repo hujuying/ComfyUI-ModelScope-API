@@ -91,6 +91,12 @@ class ModelScopeImageCaptionNode:
                     "max": 2.0,
                     "step": 0.1
                 }),
+                # 新增seed选项（与生图节点保持一致：默认-1表示随机）
+                "seed": ("INT", {
+                    "default": -1,
+                    "min": -1,
+                    "max": 2147483647
+                })
             }
         }
 
@@ -116,9 +122,14 @@ class ModelScopeImageCaptionNode:
         blank_tensor = torch.from_numpy(blank_np).unsqueeze(0).float() / 255.0
         return blank_tensor
 
-    def generate_caption(self, image=None, api_tokens="", prompt1="详细描述这张图片的内容", prompt2="", model="Qwen/Qwen3-VL-8B-Instruct", max_tokens=1000, temperature=0.7):
+    def generate_caption(self, image=None, api_tokens="", prompt1="详细描述这张图片的内容", prompt2="", model="Qwen/Qwen3-VL-8B-Instruct", max_tokens=1000, temperature=0.7, seed=-1):
         if not OPENAI_AVAILABLE:
             return ("请先安装openai库: pip install openai",)
+        
+        # 应用seed（-1则使用随机种子）
+        if seed == -1:
+            seed = np.random.randint(0, 2147483647)
+        np.random.seed(seed % (2**32 - 1))
         
         # 关键修改：处理输入图像为空的情况
         if image is None:
@@ -155,6 +166,7 @@ class ModelScopeImageCaptionNode:
             print(f"📝 提示词: {prompt}")
             print(f"🤖 模型: {model}")
             print(f"🔑 可用Token数量: {len(tokens)}")
+            print(f"🌱 Seed: {seed}")  # 打印seed信息
             
             # 转换图像为base64格式
             image_url = tensor_to_base64_url(image)
