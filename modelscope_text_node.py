@@ -2,7 +2,8 @@ import requests
 import json
 import time
 import os
- 
+import numpy as np  # 新增：用于处理随机种子
+
 try:
     from openai import OpenAI
     OPENAI_AVAILABLE = True
@@ -11,7 +12,7 @@ except ImportError:
     print("请运行: pip install openai")
     OPENAI_AVAILABLE = False
     OpenAI = None
- 
+
 def load_config():
     config_path = os.path.join(os.path.dirname(__file__), 'modelscope_config.json')
     try:
@@ -28,7 +29,7 @@ def load_config():
             "default_user_prompt": "你好",
             "api_token": ""
         }
- 
+
 def save_config(config):
     config_path = os.path.join(os.path.dirname(__file__), 'modelscope_config.json')
     try:
@@ -38,7 +39,7 @@ def save_config(config):
     except Exception as e:
         print(f"保存配置失败: {e}")
         return False
- 
+
 def load_api_token():
     try:
         cfg = load_config()
@@ -46,7 +47,7 @@ def load_api_token():
     except Exception as e:
         print(f"读取 config.json中的token失败: {e}")
         return ""
- 
+
 def save_api_token(token):
     try:
         cfg = load_config()
@@ -55,11 +56,11 @@ def save_api_token(token):
     except Exception as e:
         print(f"保存token失败: {e}")
         return False
- 
+
 class ModelScopeTextNode:
     def __init__(self):
         pass
- 
+
     @classmethod
     def INPUT_TYPES(cls):
         if not OPENAI_AVAILABLE:
@@ -107,17 +108,29 @@ class ModelScopeTextNode:
                 "stream": ("BOOLEAN", {
                     "default": True
                 }),
+                # 新增：seed参数配置
+                "seed": ("INT", {
+                    "default": -1,
+                    "min": -1,
+                    "max": 2147483647
+                }),
             }
         }
- 
+
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("response",)
     FUNCTION = "generate_text"
     CATEGORY = "ModelScopeAPI"
- 
-    def generate_text(self, user_prompt="", api_token="", system_prompt="You are a helpful assistant.", model="Qwen/Qwen3-Coder-480B-A35B-Instruct", max_tokens=2000, temperature=0.7, stream=True, error_message=""):
+
+    # 新增：函数参数中添加seed
+    def generate_text(self, user_prompt="", api_token="", system_prompt="You are a helpful assistant.", model="Qwen/Qwen3-Coder-480B-A35B-Instruct", max_tokens=2000, temperature=0.7, stream=True, seed=-1, error_message=""):
         if not OPENAI_AVAILABLE:
             return ("请先安装openai库: pip install openai",)
+        
+        # 新增：处理seed（-1则生成随机种子）
+        if seed == -1:
+            seed = np.random.randint(0, 2147483647)
+        np.random.seed(seed % (2**32 - 1))  # 设置随机种子，确保结果可复现
         
         config = load_config()
         
@@ -141,6 +154,7 @@ class ModelScopeTextNode:
             print(f"🌡️ 温度: {temperature}")
             print(f"📊 最大tokens: {max_tokens}")
             print(f"⚡ 流式输出: {stream}")
+            print(f"🔢 种子: {seed}")  # 新增：打印种子信息
             
             client = OpenAI(
                 base_url='https://api-inference.modelscope.cn/v1',
@@ -191,7 +205,7 @@ class ModelScopeTextNode:
             error_msg = f"文本生成失败: {str(e)}"
             print(f"❌ {error_msg}")
             return (error_msg,)
- 
+
 if OPENAI_AVAILABLE:
     NODE_CLASS_MAPPINGS = {
         "ModelScopeTextNode": ModelScopeTextNode
