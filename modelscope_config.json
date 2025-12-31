@@ -16,6 +16,7 @@
   "image_models": [
     "Qwen/Qwen-Image",
     "MusePublic/Qwen-image",
+    "Qwen/Qwen-Image-2512",
     "MusePublic/489_ckpt_FLUX_1",
     "MusePublic/flux-high-res",
     "black-forest-labs/FLUX.1-Krea-dev",
@@ -26,6 +27,7 @@
   "image_edit_models": [
     "Qwen/Qwen-Image-Edit",
     "MusePublic/Qwen-Image-Edit",
+    "Qwen/Qwen-Image-Edit-2511",
     "MusePublic/FLUX.1-Kontext-Dev",
     "black-forest-labs/FLUX.1-Kontext-dev"
   ],

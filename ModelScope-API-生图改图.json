@@ -1,1 +1,645 @@
-{"id":"2d9bfea8-7816-47ac-afd9-4d11c9530c1d","revision":0,"last_node_id":20,"last_link_id":38,"nodes":[{"id":8,"type":"SaveImage","pos":[2989.58154296875,323.7398376464844],"size":[435.7699890136719,653.5700073242188],"flags":{},"order":9,"mode":4,"inputs":[{"localized_name":"图片","name":"images","type":"IMAGE","link":38},{"localized_name":"文件名前缀","name":"filename_prefix","type":"STRING","widget":{"name":"filename_prefix"},"link":null}],"outputs":[],"properties":{"cnr_id":"comfy-core","ver":"0.3.56","Node name for S&R":"SaveImage"},"widgets_values":["ComfyUI"]},{"id":5,"type":"LoadImage","pos":[1768.197021484375,327.88482666015625],"size":[290.8019714355469,570.7747192382812],"flags":{},"order":0,"mode":4,"inputs":[{"localized_name":"图像","name":"image","type":"COMBO","widget":{"name":"image"},"link":null},{"localized_name":"选择文件上传","name":"upload","type":"IMAGEUPLOAD","widget":{"name":"upload"},"link":null}],"outputs":[{"label":"图像","localized_name":"图像","name":"IMAGE","type":"IMAGE","links":[3]},{"label":"遮罩","localized_name":"遮罩","name":"MASK","type":"MASK"}],"properties":{"cnr_id":"comfy-core","ver":"0.3.49","Node name for S&R":"LoadImage","ue_properties":{"version":"7.0.1","widget_ue_connectable":{"image":true,"upload":true}}},"widgets_values":["ebe510f1a069ba899eec0f82fefd3746d26f2f95ec2378a10ec1cd56cbc53642.png","image"],"color":"#232","bgcolor":"#353"},{"id":4,"type":"LayerUtility: ImageScaleByAspectRatio V2","pos":[2097.364990234375,321.6758728027344],"size":[303.68515625,330],"flags":{},"order":5,"mode":4,"inputs":[{"label":"图像","localized_name":"image","name":"image","shape":7,"type":"IMAGE","link":3},{"label":"遮罩","localized_name":"mask","name":"mask","shape":7,"type":"MASK","link":null},{"localized_name":"aspect_ratio","name":"aspect_ratio","type":"COMBO","widget":{"name":"aspect_ratio"},"link":null},{"localized_name":"proportional_width","name":"proportional_width","type":"INT","widget":{"name":"proportional_width"},"link":null},{"localized_name":"proportional_height","name":"proportional_height","type":"INT","widget":{"name":"proportional_height"},"link":null},{"localized_name":"fit","name":"fit","type":"COMBO","widget":{"name":"fit"},"link":null},{"localized_name":"method","name":"method","type":"COMBO","widget":{"name":"method"},"link":null},{"localized_name":"round_to_multiple","name":"round_to_multiple","type":"COMBO","widget":{"name":"round_to_multiple"},"link":null},{"localized_name":"scale_to_side","name":"scale_to_side","type":"COMBO","widget":{"name":"scale_to_side"},"link":null},{"localized_name":"scale_to_length","name":"scale_to_length","type":"INT","widget":{"name":"scale_to_length"},"link":null},{"localized_name":"background_color","name":"background_color","type":"STRING","widget":{"name":"background_color"},"link":null}],"outputs":[{"label":"图像","localized_name":"image","name":"image","type":"IMAGE","links":[34]},{"label":"遮罩","localized_name":"mask","name":"mask","type":"MASK"},{"label":"原始大小","localized_name":"original_size","name":"original_size","type":"BOX"},{"localized_name":"width","name":"width","type":"INT","links":[36]},{"localized_name":"height","name":"height","type":"INT","links":[37]}],"properties":{"cnr_id":"comfyui_layerstyle","ver":"3bfe8e435d167b4a5bf08716729f89802dbbaa6f","Node name for S&R":"LayerUtility: ImageScaleByAspectRatio V2","ue_properties":{"version":"7.0.1","widget_ue_connectable":{"fit":true,"aspect_ratio":true,"method":true,"background_color":true,"round_to_multiple":true,"scale_to_side":true,"proportional_height":true,"proportional_width":true,"scale_to_length":true}}},"widgets_values":["original",1,1,"letterbox","lanczos","8","longest",1664,"#000000"],"color":"#232","bgcolor":"#353"},{"id":7,"type":"CR Text","pos":[2097.43505859375,718.3400268554688],"size":[400,200],"flags":{},"order":1,"mode":4,"inputs":[{"localized_name":"文本","name":"text","type":"STRING","widget":{"name":"text"},"link":null}],"outputs":[{"label":"文本","localized_name":"text","name":"text","type":"*","links":[35]},{"label":"显示帮助","localized_name":"show_help","name":"show_help","type":"STRING"}],"properties":{"Node name for S&R":"CR Text","ue_properties":{"version":"7.0.1","widget_ue_connectable":{}}},"widgets_values":["给图中女孩戴上口罩，保持人物光影不变"],"color":"#223","bgcolor":"#335"},{"id":10,"type":"Fast Groups Bypasser (rgthree)","pos":[309.69769287109375,-15.034872055053711],"size":[530.6525268554688,129.8321533203125],"flags":{},"order":2,"mode":0,"inputs":[],"outputs":[{"label":"可选连接","name":"OPT_CONNECTION","type":"*","links":null}],"properties":{"matchColors":"","matchTitle":"","showNav":true,"showAllGraphs":true,"sort":"position","customSortAlphabet":"","toggleRestriction":"default"}},{"id":2,"type":"SaveImage","pos":[1152.2117666015624,270.78980000000007],"size":[355.6989440917969,595.6929321289062],"flags":{},"order":8,"mode":0,"inputs":[{"label":"图像","localized_name":"图片","name":"images","type":"IMAGE","link":27},{"localized_name":"文件名前缀","name":"filename_prefix","type":"STRING","widget":{"name":"filename_prefix"},"link":null}],"outputs":[],"properties":{"cnr_id":"comfy-core","ver":"0.3.50","Node name for S&R":"SaveImage","ue_properties":{"version":"7.0.1","widget_ue_connectable":{}}},"widgets_values":["ComfyUI"],"color":"#223","bgcolor":"#335"},{"id":17,"type":"ModelScopeImageNode","pos":[699.6356563636361,277.8090793883167],"size":[400,508],"flags":{},"order":6,"mode":0,"inputs":[{"localized_name":"prompt","name":"prompt","type":"STRING","widget":{"name":"prompt"},"link":26},{"localized_name":"api_tokens","name":"api_tokens","type":"STRING","widget":{"name":"api_tokens"},"link":null},{"localized_name":"model","name":"model","shape":7,"type":"COMBO","widget":{"name":"model"},"link":null},{"localized_name":"negative_prompt","name":"negative_prompt","shape":7,"type":"STRING","widget":{"name":"negative_prompt"},"link":null},{"localized_name":"width","name":"width","shape":7,"type":"INT","widget":{"name":"width"},"link":null},{"localized_name":"height","name":"height","shape":7,"type":"INT","widget":{"name":"height"},"link":null},{"localized_name":"seed","name":"seed","shape":7,"type":"INT","widget":{"name":"seed"},"link":null},{"localized_name":"steps","name":"steps","shape":7,"type":"INT","widget":{"name":"steps"},"link":null},{"localized_name":"guidance","name":"guidance","shape":7,"type":"FLOAT","widget":{"name":"guidance"},"link":null},{"localized_name":"lora1_id","name":"lora1_id","shape":7,"type":"STRING","widget":{"name":"lora1_id"},"link":28},{"localized_name":"lora1_w","name":"lora1_w","shape":7,"type":"FLOAT","widget":{"name":"lora1_w"},"link":null},{"localized_name":"lora2_id","name":"lora2_id","shape":7,"type":"STRING","widget":{"name":"lora2_id"},"link":null},{"localized_name":"lora2_w","name":"lora2_w","shape":7,"type":"FLOAT","widget":{"name":"lora2_w"},"link":null},{"localized_name":"lora3_id","name":"lora3_id","shape":7,"type":"STRING","widget":{"name":"lora3_id"},"link":null},{"localized_name":"lora3_w","name":"lora3_w","shape":7,"type":"FLOAT","widget":{"name":"lora3_w"},"link":null}],"outputs":[{"localized_name":"image","name":"image","type":"IMAGE","links":[27]}],"properties":{"Node name for S&R":"ModelScopeImageNode"},"widgets_values":["A beautiful landscape","","MusePublic/Qwen-image","lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",1024,1536,1893394128,"randomize",20,4.5,"",0.8,"",0.8,"",0.8]},{"id":18,"type":"ModelScopeSingleLoraLoaderNode","pos":[332.1272007729853,336.9393250613874],"size":[298.319921875,126],"flags":{},"order":3,"mode":0,"inputs":[{"localized_name":"lora_preset","name":"lora_preset","type":"COMBO","widget":{"name":"lora_preset"},"link":null},{"localized_name":"lora_weight","name":"lora_weight","shape":7,"type":"FLOAT","widget":{"name":"lora_weight"},"link":null},{"localized_name":"use_custom_weight","name":"use_custom_weight","shape":7,"type":"BOOLEAN","widget":{"name":"use_custom_weight"},"link":null}],"outputs":[{"localized_name":"lora_id","name":"lora_id","type":"STRING","links":[28]},{"localized_name":"lora_weight","name":"lora_weight","type":"FLOAT","links":null}],"properties":{"Node name for S&R":"ModelScopeSingleLoraLoaderNode"},"widgets_values":["Qwen-抖音小红书手持手机自拍美女",0.8,false]},{"id":1,"type":"CR Text","pos":[372.63900559537984,619.0155193130165],"size":[210,167.7898],"flags":{},"order":4,"mode":0,"inputs":[{"localized_name":"文本","name":"text","type":"STRING","widget":{"name":"text"},"link":null}],"outputs":[{"label":"文本","localized_name":"text","name":"text","type":"*","links":[26]},{"label":"显示帮助","localized_name":"show_help","name":"show_help","type":"STRING"}],"properties":{"Node name for S&R":"CR Text","ue_properties":{"version":"7.0.1","widget_ue_connectable":{}}},"widgets_values":["Selfie with your mobile phone，a high-resolution photograph featuring a young woman with long, straight black hair and fair skin, she is standing in front of a mirror, taking a selfie with her phone, which is held in her right hand, her left hand is positioned near her face, holding the phone with a small, stylized logo, she wears a white, long-sleeved blouse that is slightly unbuttoned, revealing a portion of her chest, and a short, black mini-skirt that accentuates her curvy figure, she also wears black thigh-high stockings with lace tops and black leather shoes, the background shows a plain, beige wall and a door with a metallic texture, suggesting an indoor setting, the floor is tiled in a light beige color, and the overall ambiance suggests a modern, minimalist environment, the lighting is soft and natural, casting gentle shadows that enhance the texture of her clothing and the smoothness of her skin, the photograph is likely taken in a studio setting, likely in a private, private space, as indicated by the minimalistic setting，"],"color":"#223","bgcolor":"#335"},{"id":20,"type":"ModelScopeImageEditNode","pos":[2525.160888671875,336.3112487792969],"size":[400,556],"flags":{},"order":7,"mode":4,"inputs":[{"localized_name":"image","name":"image","type":"IMAGE","link":34},{"localized_name":"prompt","name":"prompt","type":"STRING","widget":{"name":"prompt"},"link":35},{"localized_name":"api_tokens","name":"api_tokens","type":"STRING","widget":{"name":"api_tokens"},"link":null},{"localized_name":"image_gen_mode","name":"image_gen_mode","type":"BOOLEAN","widget":{"name":"image_gen_mode"},"link":null},{"localized_name":"gen_model","name":"gen_model","shape":7,"type":"COMBO","widget":{"name":"gen_model"},"link":null},{"localized_name":"edit_model","name":"edit_model","shape":7,"type":"COMBO","widget":{"name":"edit_model"},"link":null},{"localized_name":"negative_prompt","name":"negative_prompt","shape":7,"type":"STRING","widget":{"name":"negative_prompt"},"link":null},{"localized_name":"width","name":"width","shape":7,"type":"INT","widget":{"name":"width"},"link":36},{"localized_name":"height","name":"height","shape":7,"type":"INT","widget":{"name":"height"},"link":37},{"localized_name":"steps","name":"steps","shape":7,"type":"INT","widget":{"name":"steps"},"link":null},{"localized_name":"guidance","name":"guidance","shape":7,"type":"FLOAT","widget":{"name":"guidance"},"link":null},{"localized_name":"seed","name":"seed","shape":7,"type":"INT","widget":{"name":"seed"},"link":null},{"localized_name":"lora1_id","name":"lora1_id","shape":7,"type":"STRING","widget":{"name":"lora1_id"},"link":null},{"localized_name":"lora1_w","name":"lora1_w","shape":7,"type":"FLOAT","widget":{"name":"lora1_w"},"link":null},{"localized_name":"lora2_id","name":"lora2_id","shape":7,"type":"STRING","widget":{"name":"lora2_id"},"link":null},{"localized_name":"lora2_w","name":"lora2_w","shape":7,"type":"FLOAT","widget":{"name":"lora2_w"},"link":null},{"localized_name":"lora3_id","name":"lora3_id","shape":7,"type":"STRING","widget":{"name":"lora3_id"},"link":null},{"localized_name":"lora3_w","name":"lora3_w","shape":7,"type":"FLOAT","widget":{"name":"lora3_w"},"link":null}],"outputs":[{"localized_name":"edited_image","name":"edited_image","type":"IMAGE","links":[38]}],"properties":{"Node name for S&R":"ModelScopeImageEditNode"},"widgets_values":["修改图片中的内容","",false,"MAILAND/majicflus_v1","Qwen/Qwen-Image-Edit","lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",512,512,30,3.5,1767203483,"randomize","",0.8,"",0.8,"",0.8]}],"links":[[3,5,0,4,0,"IMAGE"],[26,1,0,17,0,"STRING"],[27,17,0,2,0,"IMAGE"],[28,18,0,17,9,"STRING"],[34,4,0,20,0,"IMAGE"],[35,7,0,20,1,"STRING"],[36,4,3,20,7,"INT"],[37,4,4,20,8,"INT"],[38,20,0,8,0,"IMAGE"]],"groups":[{"id":1,"title":"魔搭-文生图","bounding":[272.2100524902344,170.37083435058594,1283.3289794921875,812.0499877929688],"color":"#3f789e","font_size":24,"flags":{}},{"id":2,"title":"魔搭-图片编辑","bounding":[1663.396484375,122.82080078125,1826.526123046875,960.4658203125],"color":"#3f789e","font_size":24,"flags":{}}],"config":{},"extra":{"ds":{"scale":0.9090909090909091,"offset":[84.01624491641203,-8.219006754100473]}},"version":0.4}
+{
+  "id": "2d9bfea8-7816-47ac-afd9-4d11c9530c1d",
+  "revision": 0,
+  "last_node_id": 21,
+  "last_link_id": 41,
+  "nodes": [
+    {
+      "id": 8,
+      "type": "SaveImage",
+      "pos": [
+        2989.58154296875,
+        323.7398376464844
+      ],
+      "size": [
+        435.7699890136719,
+        653.5700073242188
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 38
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.56",
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "LoadImage",
+      "pos": [
+        1768.197021484375,
+        327.88482666015625
+      ],
+      "size": [
+        290.8019714355469,
+        570.7747192382812
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "label": "图像",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3
+          ]
+        },
+        {
+          "label": "遮罩",
+          "name": "MASK",
+          "type": "MASK"
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.49",
+        "Node name for S&R": "LoadImage",
+        "ue_properties": {
+          "version": "7.0.1",
+          "widget_ue_connectable": {
+            "image": true,
+            "upload": true
+          }
+        }
+      },
+      "widgets_values": [
+        "ebe510f1a069ba899eec0f82fefd3746d26f2f95ec2378a10ec1cd56cbc53642.png",
+        "image"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 4,
+      "type": "LayerUtility: ImageScaleByAspectRatio V2",
+      "pos": [
+        2097.364990234375,
+        321.6758728027344
+      ],
+      "size": [
+        317.2681640625,
+        330
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 4,
+      "inputs": [
+        {
+          "label": "图像",
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 3
+        },
+        {
+          "label": "遮罩",
+          "name": "mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "图像",
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            34
+          ]
+        },
+        {
+          "label": "遮罩",
+          "name": "mask",
+          "type": "MASK"
+        },
+        {
+          "label": "原始大小",
+          "name": "original_size",
+          "type": "BOX"
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            36
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            37
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_layerstyle",
+        "ver": "3bfe8e435d167b4a5bf08716729f89802dbbaa6f",
+        "Node name for S&R": "LayerUtility: ImageScaleByAspectRatio V2",
+        "ue_properties": {
+          "version": "7.0.1",
+          "widget_ue_connectable": {
+            "fit": true,
+            "aspect_ratio": true,
+            "method": true,
+            "background_color": true,
+            "round_to_multiple": true,
+            "scale_to_side": true,
+            "proportional_height": true,
+            "proportional_width": true,
+            "scale_to_length": true
+          }
+        }
+      },
+      "widgets_values": [
+        "original",
+        1,
+        1,
+        "letterbox",
+        "lanczos",
+        "8",
+        "longest",
+        1664,
+        "#000000"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 7,
+      "type": "CR Text",
+      "pos": [
+        2097.43505859375,
+        718.3400268554688
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "label": "文本",
+          "name": "text",
+          "type": "*",
+          "links": [
+            35
+          ]
+        },
+        {
+          "label": "显示帮助",
+          "name": "show_help",
+          "type": "STRING"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CR Text",
+        "ue_properties": {
+          "version": "7.0.1",
+          "widget_ue_connectable": {}
+        }
+      },
+      "widgets_values": [
+        "给图中女孩戴上口罩，保持人物光影不变"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 2,
+      "type": "SaveImage",
+      "pos": [
+        1152.2117666015624,
+        270.78980000000007
+      ],
+      "size": [
+        355.6989440917969,
+        595.6929321289062
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "图像",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 41
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.50",
+        "Node name for S&R": "SaveImage",
+        "ue_properties": {
+          "version": "7.0.1",
+          "widget_ue_connectable": {}
+        }
+      },
+      "widgets_values": [
+        "ComfyUI"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 1,
+      "type": "CR Text",
+      "pos": [
+        372.63900559537984,
+        619.0155193130165
+      ],
+      "size": [
+        210,
+        167.7898
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "label": "文本",
+          "name": "text",
+          "type": "*",
+          "links": [
+            39
+          ]
+        },
+        {
+          "label": "显示帮助",
+          "name": "show_help",
+          "type": "STRING"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CR Text",
+        "ue_properties": {
+          "version": "7.0.1",
+          "widget_ue_connectable": {}
+        }
+      },
+      "widgets_values": [
+        "一位身着精致淡紫色缎面旗袍的年轻东方女性，正优雅地翩翩起舞。旗袍上绣满金色祥云与龙纹刺绣，高开衩设计凸显动感线条。她佩戴华丽金色发簪，搭配半透明薄纱长袖与红色刺绣袖口，脚蹬红色过膝袜。人物面部精致，妆容柔美，眼神专注而富有表现力。场景为现代中式室内，背景是暖色调的水墨山水画挂轴，营造典雅氛围。整体风格融合古典东方美学与现代时尚感，画面光影柔和，色彩以淡紫、金、红为主调，构图居中特写，突出人物动态与服饰细节。舞姿轻盈舒展，裙摆随动作飘逸，充满韵律美感。"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 18,
+      "type": "ModelScopeSingleLoraLoaderNode",
+      "pos": [
+        332.1272007729853,
+        336.9393250613874
+      ],
+      "size": [
+        298.319921875,
+        126
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "lora_id",
+          "type": "STRING",
+          "links": [
+            40
+          ]
+        },
+        {
+          "name": "lora_weight",
+          "type": "FLOAT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "aux_id": "hujuying/ComfyUI-ModelScope-API",
+        "Node name for S&R": "ModelScopeSingleLoraLoaderNode",
+        "ver": "dcd789eb0bc2c8d62192c0faf16add8c3db3c8a3"
+      },
+      "widgets_values": [
+        "无LoRA",
+        0.8,
+        false
+      ]
+    },
+    {
+      "id": 20,
+      "type": "ModelScopeImageEditNode",
+      "pos": [
+        2525.160888671875,
+        336.3112487792969
+      ],
+      "size": [
+        400,
+        556
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 34
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 35
+        },
+        {
+          "name": "width",
+          "shape": 7,
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 36
+        },
+        {
+          "name": "height",
+          "shape": 7,
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 37
+        }
+      ],
+      "outputs": [
+        {
+          "name": "edited_image",
+          "type": "IMAGE",
+          "links": [
+            38
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "hujuying/ComfyUI-ModelScope-API",
+        "Node name for S&R": "ModelScopeImageEditNode",
+        "ver": "dcd789eb0bc2c8d62192c0faf16add8c3db3c8a3"
+      },
+      "widgets_values": [
+        "修改图片中的内容",
+        "",
+        false,
+        "MAILAND/majicflus_v1",
+        "Qwen/Qwen-Image-Edit-2511",
+        "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
+        512,
+        512,
+        20,
+        3.5,
+        1372343656,
+        "randomize",
+        "",
+        0.8,
+        "",
+        0.8,
+        "",
+        0.8
+      ]
+    },
+    {
+      "id": 10,
+      "type": "Fast Groups Bypasser (rgthree)",
+      "pos": [
+        309.69769287109375,
+        -15.034872055053711
+      ],
+      "size": [
+        530.6525268554688,
+        129.8321533203125
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "label": "可选连接",
+          "name": "OPT_CONNECTION",
+          "type": "*",
+          "links": null
+        }
+      ],
+      "properties": {
+        "matchColors": "",
+        "matchTitle": "",
+        "showNav": true,
+        "showAllGraphs": true,
+        "sort": "position",
+        "customSortAlphabet": "",
+        "toggleRestriction": "default"
+      }
+    },
+    {
+      "id": 21,
+      "type": "ModelScopeImageNode",
+      "pos": [
+        699.6356563636361,
+        277.8090793883167
+      ],
+      "size": [
+        400,
+        508
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 39
+        },
+        {
+          "name": "lora1_id",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "lora1_id"
+          },
+          "link": 40
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            41
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "hujuying/ComfyUI-ModelScope-API",
+        "Node name for S&R": "ModelScopeImageNode",
+        "ver": "dcd789eb0bc2c8d62192c0faf16add8c3db3c8a3"
+      },
+      "widgets_values": [
+        "A beautiful landscape",
+        "",
+        "Qwen/Qwen-Image-2512",
+        "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry",
+        1024,
+        1536,
+        1546461360,
+        "randomize",
+        20,
+        3.5,
+        "",
+        0.8,
+        "",
+        0.8,
+        "",
+        0.8
+      ]
+    }
+  ],
+  "links": [
+    [
+      3,
+      5,
+      0,
+      4,
+      0,
+      "IMAGE"
+    ],
+    [
+      34,
+      4,
+      0,
+      20,
+      0,
+      "IMAGE"
+    ],
+    [
+      35,
+      7,
+      0,
+      20,
+      1,
+      "STRING"
+    ],
+    [
+      36,
+      4,
+      3,
+      20,
+      2,
+      "INT"
+    ],
+    [
+      37,
+      4,
+      4,
+      20,
+      3,
+      "INT"
+    ],
+    [
+      38,
+      20,
+      0,
+      8,
+      0,
+      "IMAGE"
+    ],
+    [
+      39,
+      1,
+      0,
+      21,
+      0,
+      "STRING"
+    ],
+    [
+      40,
+      18,
+      0,
+      21,
+      1,
+      "STRING"
+    ],
+    [
+      41,
+      21,
+      0,
+      2,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "魔搭-文生图",
+      "bounding": [
+        272.2100524902344,
+        170.37083435058594,
+        1283.3289794921875,
+        812.0499877929688
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "魔搭-图片编辑",
+      "bounding": [
+        1663.396484375,
+        122.82080078125,
+        1826.526123046875,
+        960.4658203125
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1,
+      "offset": [
+        -147.49653586075294,
+        -69.45608533081602
+      ]
+    },
+    "workflowRendererVersion": "LG",
+    "frontendVersion": "1.37.1"
+  },
+  "version": 0.4
+}
